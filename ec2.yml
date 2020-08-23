@@ -1,0 +1,28 @@
+- hosts: localhost
+  vars_files:
+          - access.yml
+  tasks:
+  - ec2:
+     region: ap-south-1
+     key_name: testkey
+     instance_type: t2.micro
+     image: ami-0ebc1ac48dfd14136
+     wait: yes
+     group: launch-wizard-7
+     count: 1
+     vpc_subnet_id: subnet-43290b2b
+     assign_public_ip: yes
+     aws_access_key: "{{access}}"
+     aws_secret_key: "{{secret}}"
+    register: ec2_inst
+
+  - debug:
+          var: ec2_inst
+  - command: "ssh-add ~/.ssh/testkey.pem" 
+
+
+- hosts: all
+  roles:
+          - role: webserver
+
+    
