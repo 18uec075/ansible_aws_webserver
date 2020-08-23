@@ -1,0 +1,7 @@
+---
+# vars file for webserver
+
+dcdir: "/var/www/rohan"
+httpport: 8123
+
+
